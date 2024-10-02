@@ -111,6 +111,7 @@ deployment:
   #   effect: "NoSchedule"
   env:
     CHECK_REAPER_RUN_INTERVAL: "30s" # Interval for how often check pods should get reaped. Default is 30s
+    TARGET_NAMESPACE: "" # leave blank to target all namespaces, or supply a namespace to operate on only a single namespace
   command:
   - /app/kuberhealthy
   # args:
@@ -120,6 +121,20 @@ deployment:
   ## soft: specifies preferences that the scheduler will try to enforce but will not guarantee (Default)
   ## hard: specifies rules that must be met for a pod to be scheduled onto a node
   podAntiAffinity: "soft"
+  ## customLabels can be used to add custom labels to the deployment, such as datadog environment variables, ex:
+    # customLabels:
+    #   tags.datadoghq.com/env: "<ENV>"
+    #   tags.datadoghq.com/service: "<SERVICE>"
+    #   tags.datadoghq.com/version: "<VERSION>"
+  customLabels: {}
+
+pod:
+  ## customLabels can be used to add custom labels to the deployment, such as datadog environment variables, ex:
+  # customLabels:
+  #   tags.datadoghq.com/env: "<ENV>"
+  #   tags.datadoghq.com/service: "<SERVICE>"
+  #   tags.datadoghq.com/version: "<VERSION>"
+  customLabels: {}
 
 # When enabled equals to true, runAsUser and fsGroup will be
 # included to all khchecks as specified below.
